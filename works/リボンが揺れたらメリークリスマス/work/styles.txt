@@ -1,0 +1,14 @@
+[Style of Music]
+Hyper-cheerful J-Pop, Bright Christmas Holiday Pop, Cute Clear Female Vocal, 172 BPM, 4/4 time, D major, Sparkling Piano, Sleigh Bells, Celesta, Punchy Brass, Tight Snappy Drums, Dynamic Contrast, Crisp Modern Production
+
+[Exclude Styles]
+sad, dark, melancholy, slow ballad, minor key
+
+[Parameters]
+- Style Influence: 75%
+- Weirdness: 30%
+- Mode: Custom Mode ON / Instrumental OFF
+
+[Design Rationale]
+- 語順・楽器選定の意図：先頭に明るいクリスマスJ-Popのジャンルとクリアな女性ボーカル、172 BPM・D major を配置し、スレイベル・チェレスタ・きらめくピアノ・ブラスの4点で祝祭感を最大化。
+- 歌詞とのバランス・対比設計：Bメロ（踏切待ち）で一瞬だけリズムを引き算するため、Dynamic Contrast を入れつつも全体のポジティブな推進力を保つ。Weirdness 30% で172 BPMの跳ねる譜割りを安定させる。

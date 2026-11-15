@@ -2,6 +2,16 @@
 
 テキストや資料から、ビジュアル生成・戯曲／MV台本・自由詩・Style設計・歌詞翻訳・マルチペルソナレビューを経て、Suno AI 用の楽曲一式を生成するエージェントスキル群と制作メソッドの公開リポジトリです。
 
+## 収録作品（`works/`）
+
+| リボンが揺れたらメリークリスマス | ひだまりの角を曲がったら | 水たまりが光を返すまで |
+| :---: | :---: | :---: |
+| <a href="https://suno.com/s/VSih94sZPmDFpYhC"><img src="works/リボンが揺れたらメリークリスマス/work/visual_1.jpg" width="240" alt="リボンが揺れたらメリークリスマス"></a> | <a href="https://suno.com/s/POwGnHGp9N4mFbet"><img src="works/ひだまりの角を曲がったら/work/visual_1.jpg" width="240" alt="ひだまりの角を曲がったら"></a> | <a href="https://suno.com/s/z7HarBUlpCsb0QOg"><img src="works/水たまりが光を返すまで/cover.jpg" width="240" alt="水たまりが光を返すまで"></a> |
+| [![Listen on Suno](https://img.shields.io/badge/%E2%96%B6%20Listen%20on-Suno-ff4b2b?style=flat-square)](https://suno.com/s/VSih94sZPmDFpYhC) | [![Listen on Suno](https://img.shields.io/badge/%E2%96%B6%20Listen%20on-Suno-ff4b2b?style=flat-square)](https://suno.com/s/POwGnHGp9N4mFbet) | [![Listen on Suno](https://img.shields.io/badge/%E2%96%B6%20Listen%20on-Suno-ff4b2b?style=flat-square)](https://suno.com/s/z7HarBUlpCsb0QOg) |
+| [作品データ](works/リボンが揺れたらメリークリスマス/) | [作品データ](works/ひだまりの角を曲がったら/) | [作品データ](works/水たまりが光を返すまで/) |
+
+> GitHub の Markdown 仕様上、外部オーディオプレイヤー（`<iframe>` 等）の直接埋め込みは非対応のため、ジャケット画像・再生バッジから Suno 公式ページへリンクしています。
+
 ## 収録スキル（`skills/`）
 
 | スキル / 資料 | 役割 |

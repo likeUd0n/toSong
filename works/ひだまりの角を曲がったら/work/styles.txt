@@ -1,0 +1,14 @@
+[Style of Music]
+Refreshing Japanese City Pop, Light Funk Groove, Fresh Relaxed Male Vocal, 116 BPM, 4/4 time, A major, Clean Funk Electric Guitar, Warm Rhodes Piano, Bouncy Bassline, Crisp Light Drums, Breezy Morning Feel, Crisp Modern Production
+
+[Exclude Styles]
+heavy distortion, dark, aggressive, trap, slow ballad
+
+[Parameters]
+- Style Influence: 70%
+- Weirdness: 35%
+- Mode: Custom Mode ON / Instrumental OFF
+
+[Design Rationale]
+- 語順・楽器選定の意図：シティポップとライトファンクを先頭に置き、力みのない爽やかな男性ボーカルと116 BPM・A major を指定。カッティングギター・Rhodes・跳ねるベースで「軽快に歩く足取り」を表現。
+- 歌詞とのバランス・対比設計：重苦しさを避けるため heavy distortion や dark を除外。朝の清々しさと川沿いの開放感が出るよう Breezy Morning Feel を配置。
