@@ -51,7 +51,7 @@ Suno に貼り付けるときは、お使いのプランに合わせて以下を
 | スキル / 資料 | 役割 |
 |---|---|
 | [`skills/toSong/`](skills/toSong/SKILL.md) | テキストや資料から楽曲一式を組み立てる全8ステップのメインパイプライン |
-| [`skills/toSong/references/story-guide.md`](skills/toSong/references/story-guide.md) | コンセプト・Visual & Sensory Bridge・戯曲／MV台本の設計ガイド |
+| [`skills/toSong/references/story-guide.md`](skills/toSong/references/story-guide.md) | 観察・連想メモ、戯曲／MV台本、コンセプト・ペルソナ確定の設計ガイド |
 | [`skills/toSong/references/lyrics-guide.md`](skills/toSong/references/lyrics-guide.md) | ワードマイニング・感情フィルター・自由詩・モーラ／譜割り・発音ガードのガイド |
 | [`skills/toSong/references/Suno作曲メソッド.md`](skills/toSong/references/Suno作曲メソッド.md) | ペルソナ・作詞・メタタグ・Style／パラメータ設定の共通ルール集 |
 | [`skills/genStyle/`](skills/genStyle/SKILL.md) | コンセプト・画像・台本から Suno AI の `Style of Music` / `Exclude Styles` を設計 |
@@ -61,11 +61,11 @@ Suno に貼り付けるときは、お使いのプランに合わせて以下を
 
 いきなり歌詞やタイトルを書かず、以下の順で映像・感情・音を立ち上げます。
 
-1. **棚卸し・削ぎ落とし**：テーマ・感情軸を1つに絞り、曲調の軸を決める
-2. **コンセプト ＆ 観客視点**：書き言葉で曲の狙いと聴後感を定義する
-3. **ビジュアル生成**：キービジュアルを生成し、偶然の生活感・光の余白を残す
-4. **Visual & Sensory Bridge**：画像から時間軸・五感・コア楽器・ペルソナを読み解く
-5. **戯曲・MV台本（`script.md`）**：カメラ・環境音・ト書き・セリフの4層でシーンを組む
+1. **棚卸し・削ぎ落とし【還元】**：情報や結論を手放して感情の種を1つに絞り、曲調の軸を決める
+2. **ビジュアル生成【攪拌】**：キービジュアルを生成し、偶然の生活感・光の余白を残す
+3. **観察 ＆ 連想メモ【絶縁】**：画像に写った事実と連想の種だけを拾い、元テキストの重力を断つ
+4. **戯曲・MV台本（`script.md`）【実験】**：設定を固める前にカメラ・環境音・ト書き・セリフの4層でキャラを動かす
+5. **設計の確定（`concept.md` / `ペルソナ.md`）【結晶】**：台本から立ち上がったコンセプト・観客視点・五感・コア楽器・ペルソナを確定する
 6. **ワードマイニング ＆ 自由詩（`poetry.md`）**：コア名詞を絞り、制約なしで詩を書く
 7. **Style 設計（`genStyle`）**：空気感とコア楽器から `Style of Music` を組み立てる
 8. **歌詞翻訳 ＆ タイトル命名**：譜割り・発音ガードを通して歌詞化し、最後にタイトルと一貫性を確定する（仕上げに `song-review` でブラッシュアップ）
