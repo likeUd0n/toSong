@@ -1,0 +1,14 @@
+[Style of Music]
+Indie Acoustic J-Pop, Bedroom Pop, Warm Natural Male Vocal, Intimate Conversational Delivery, 96 BPM, 4/4 time, D major, Fingerpicked Acoustic Guitar, Upright Piano, Warm Electric Bass, Soft Brushed Drums, Dynamic Contrast, Organic Production
+
+[Exclude Styles]
+heavy metal, aggressive, distortion, edm drop, screaming
+
+[Parameters]
+- Style Influence: 70%
+- Weirdness: 40%
+- Mode: Custom Mode ON / Instrumental OFF
+
+[Design Rationale]
+- 語順・楽器選定の意図：先頭20〜30語に「Indie Acoustic J-Pop / 親密な男性ボーカル / 96 BPM / D major / 4つのコア楽器（アコギ・アップライトピアノ・ベース・ブラシドラム）」を凝縮し、深夜の歩幅と朝の静けさに合うオーガニックな質感に固定。
+- 歌詞とのバランス・対比設計：弱さや迷いを歌う歌詞だが、重苦しいバラードに沈みすぎないよう D major の温かい響きと「Dynamic Contrast」を指定し、Bメロの引き算からサビで視界が開ける落差を歌詞側メタタグで制御する。

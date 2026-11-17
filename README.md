@@ -1,8 +1,27 @@
 # toSong
 
+![Status: WIP](https://img.shields.io/badge/status-WIP%20%2F%20%E9%96%8B%E7%99%BA%E4%B8%AD-orange?style=flat-square)
+
+> [!NOTE]
+> このプロジェクトは現在**開発中（実験段階）**です。スキル構成・手順・出力形式は予告なく変更されることがあります。
+>
+> **現在の課題**
+> - 生成時間が長くなる（テストで実験したところ約 10 分かかった）
+> - 歌詞の意味がまだ自然ではない
+
 **toSong は、音楽生成 AI「Suno AI」に入力するための『歌詞・Style プロンプト・パラメータ一式』を、思いつきや手元の資料から自動で組み立てる AI エージェント向けスキル群（Suno 専用プロンプター／制作ワークフロー）です。**
 
 ※ このリポジトリ自体は音声ファイル（MP3/WAV）を直接生成しません。Suno の **Custom Mode** にそのままコピペして「Create」を押すだけの状態を作るための設計・プロンプト生成ツールです。
+
+## デモ：雑談のお題が 1 曲になるまで
+
+<a href="docs/demo.mp4"><img src="docs/demo.gif" width="720" alt="toSong デモ：雑談でお題 → /toSong に貼る → Suno に貼って Create"></a>
+
+| Before | Process | After |
+| :--- | :--- | :--- |
+| AI との雑談で出たお題 | `/toSong` に貼っておまかせで歌詞・Style・ジャケットを生成し、`suno-paste.md` を Suno（無料プラン）に貼って Create | 『三コマ目のドアノブ』 [![Listen on Suno](https://img.shields.io/badge/%E2%96%B6%20Listen%20on-Suno-ff4b2b?style=flat-square)](https://suno.com/s/ACwcZl4hpqH89E9g) |
+
+※ GIF は無音です（リンク先の MP4 は BGM 付き、曲本編は Suno のリンクから聴けます）。
 
 ---
 
@@ -28,39 +47,30 @@
 
 ## 出力ファイルと Suno への貼り付け方
 
-制作が完了すると、曲フォルダの直下に **Suno 貼り付け用ファイル**、その中の `work/` に **制作過程の資料（台本・自由詩・画像・ペルソナ等）** が出力されます。
+制作が完了すると、曲フォルダの直下には **Suno 貼り付け用ファイル（`suno-paste.md` / `suno-paste.html`）** と **ジャケット画像（`cover.jpg`）** のみが出力されます。単体テキストや制作過程の資料はすべて `work/` サブフォルダに格納されます。
 
-Suno に貼り付けるときは、お使いのプランに合わせて以下をコピーしてください（`suno-paste.md` がある曲では、1 つのファイル内のコードブロックからまとめてコピーできます）。
+Suno に貼り付けるときは、ブラウザで `suno-paste.html` を開いて各「コピー」ボタンを押すか、`suno-paste.md` 内の各コードブロックを上から順（Lyrics → Style of Music → Title）にコピーしてください。
 
-### 1. 無料プラン（Free）で使うファイル
-まずはこの **3 つだけ** を Suno の Custom Mode に貼り付ければ曲を作れます。
+### 1. 曲フォルダ直下（ルート）
+| ファイル | 内容 |
+|---|---|
+| `suno-paste.html` | ブラウザで開いてワンクリックでコピーできる貼り付け用ページ（Suno Custom Mode 順：Lyrics → Style of Music → Title） |
+| `suno-paste.md` | Suno の Custom Mode にそのまま貼れるコードブロック集（上から Lyrics → Style of Music → Title、有料プラン時は Exclude Styles / パラメータも収録） |
+| `cover.jpg` | 曲タイトルと空気感に合わせたジャケット画像（画像生成を有効にしている場合） |
 
-| ファイル | Suno 画面の貼り付け先 | 内容 |
-|---|---|---|
-| `title.txt` | **Title** | 曲タイトル |
-| `style.txt` | **Style of Music** | ジャンル・楽器・声質・テンポなどの英語タグ |
-| `lyrics.txt` | **Lyrics** | `[Verse]` などのメタタグ付き歌詞（ひらがな・発音調整済み） |
-
-### 2. 有料プラン（Pro / Premier）で追加するファイル
-有料プランでは、上記 3 つに加えて詳細コントロール用の項目も使えます。
-
-| ファイル | Suno 画面の貼り付け先 / 設定箇所 | 内容 |
-|---|---|---|
-| `exclude.txt` | **Exclude Styles** | 除外したい楽器・要素（※無料プランでは欄がないため不要） |
-| `settings.txt` | **Style Influence / Weirdness** 等 | Custom Mode のオンオフや各スライダーの推奨値（`%`） |
-
-### 3. 貼り付けないファイル（`work/` フォルダ）
-- `script.md`（戯曲・MV台本）、`poetry.md`（自由詩）、`ペルソナ.md`、`styles.txt`（設計メモ）、`visual_*.jpg`（キービジュアル）などが入ります。Suno への貼り付けは不要です。
+### 2. `work/` サブフォルダ（単体テキスト・制作過程の資料）
+- 単体ファイル：`title.txt`, `style.txt`, `lyrics.txt`（有料プラン時は `exclude.txt`, `settings.txt` も生成）
+- 制作資料：`script.md`（戯曲・MV台本）、`poetry.md`（自由詩）、`ペルソナ.md`、`styles.txt`（設計メモ）、`visual_*.jpg`（キービジュアル）、`review.md` 等
 
 ---
 
 ## 収録作品（`works/`）
 
-| リボンが揺れたらメリークリスマス | ひだまりの角を曲がったら | 水たまりが光を返すまで |
-| :---: | :---: | :---: |
-| <a href="https://suno.com/s/VSih94sZPmDFpYhC"><img src="works/リボンが揺れたらメリークリスマス/work/visual_1.jpg" width="240" alt="リボンが揺れたらメリークリスマス"></a> | <a href="https://suno.com/s/POwGnHGp9N4mFbet"><img src="works/ひだまりの角を曲がったら/work/visual_1.jpg" width="240" alt="ひだまりの角を曲がったら"></a> | <a href="https://suno.com/s/z7HarBUlpCsb0QOg"><img src="works/水たまりが光を返すまで/cover.jpg" width="240" alt="水たまりが光を返すまで"></a> |
-| [![Listen on Suno](https://img.shields.io/badge/%E2%96%B6%20Listen%20on-Suno-ff4b2b?style=flat-square)](https://suno.com/s/VSih94sZPmDFpYhC) | [![Listen on Suno](https://img.shields.io/badge/%E2%96%B6%20Listen%20on-Suno-ff4b2b?style=flat-square)](https://suno.com/s/POwGnHGp9N4mFbet) | [![Listen on Suno](https://img.shields.io/badge/%E2%96%B6%20Listen%20on-Suno-ff4b2b?style=flat-square)](https://suno.com/s/z7HarBUlpCsb0QOg) |
-| [作品データ](works/リボンが揺れたらメリークリスマス/) | [作品データ](works/ひだまりの角を曲がったら/) | [作品データ](works/水たまりが光を返すまで/) |
+| 三コマ目のドアノブ | とりあえず起きてから | リボンが揺れたらメリークリスマス | ひだまりの角を曲がったら | 水たまりが光を返すまで |
+| :---: | :---: | :---: | :---: | :---: |
+| <a href="https://suno.com/s/ACwcZl4hpqH89E9g"><img src="works/三コマ目のドアノブ/cover.jpg" width="240" alt="三コマ目のドアノブ"></a> | <a href="https://suno.com/s/K1M5T7TxHk4mC457"><img src="works/とりあえず起きてから/cover.jpg" width="240" alt="とりあえず起きてから"></a> | <a href="https://suno.com/s/VSih94sZPmDFpYhC"><img src="works/リボンが揺れたらメリークリスマス/work/visual_1.jpg" width="240" alt="リボンが揺れたらメリークリスマス"></a> | <a href="https://suno.com/s/POwGnHGp9N4mFbet"><img src="works/ひだまりの角を曲がったら/work/visual_1.jpg" width="240" alt="ひだまりの角を曲がったら"></a> | <a href="https://suno.com/s/z7HarBUlpCsb0QOg"><img src="works/水たまりが光を返すまで/cover.jpg" width="240" alt="水たまりが光を返すまで"></a> |
+| [![Listen on Suno](https://img.shields.io/badge/%E2%96%B6%20Listen%20on-Suno-ff4b2b?style=flat-square)](https://suno.com/s/ACwcZl4hpqH89E9g) | [![Listen on Suno](https://img.shields.io/badge/%E2%96%B6%20Listen%20on-Suno-ff4b2b?style=flat-square)](https://suno.com/s/K1M5T7TxHk4mC457) | [![Listen on Suno](https://img.shields.io/badge/%E2%96%B6%20Listen%20on-Suno-ff4b2b?style=flat-square)](https://suno.com/s/VSih94sZPmDFpYhC) | [![Listen on Suno](https://img.shields.io/badge/%E2%96%B6%20Listen%20on-Suno-ff4b2b?style=flat-square)](https://suno.com/s/POwGnHGp9N4mFbet) | [![Listen on Suno](https://img.shields.io/badge/%E2%96%B6%20Listen%20on-Suno-ff4b2b?style=flat-square)](https://suno.com/s/z7HarBUlpCsb0QOg) |
+| [作品データ](works/三コマ目のドアノブ/) | [作品データ](works/とりあえず起きてから/) | [作品データ](works/リボンが揺れたらメリークリスマス/) | [作品データ](works/ひだまりの角を曲がったら/) | [作品データ](works/水たまりが光を返すまで/) |
 
 > GitHub の Markdown 仕様上、外部オーディオプレイヤー（`<iframe>` 等）の直接埋め込みは非対応のため、ジャケット画像・再生バッジから Suno 公式ページへリンクしています。
 
