@@ -66,11 +66,11 @@ Suno に貼り付けるときは、ブラウザで `suno-paste.html` を開い�
 
 ## 収録作品（`works/`）
 
-| 三コマ目のドアノブ | とりあえず起きてから | リボンが揺れたらメリークリスマス | ひだまりの角を曲がったら | 水たまりが光を返すまで |
-| :---: | :---: | :---: | :---: | :---: |
-| <a href="https://suno.com/s/ACwcZl4hpqH89E9g"><img src="works/三コマ目のドアノブ/cover.jpg" width="240" alt="三コマ目のドアノブ"></a> | <a href="https://suno.com/s/K1M5T7TxHk4mC457"><img src="works/とりあえず起きてから/cover.jpg" width="240" alt="とりあえず起きてから"></a> | <a href="https://suno.com/s/VSih94sZPmDFpYhC"><img src="works/リボンが揺れたらメリークリスマス/work/visual_1.jpg" width="240" alt="リボンが揺れたらメリークリスマス"></a> | <a href="https://suno.com/s/POwGnHGp9N4mFbet"><img src="works/ひだまりの角を曲がったら/work/visual_1.jpg" width="240" alt="ひだまりの角を曲がったら"></a> | <a href="https://suno.com/s/z7HarBUlpCsb0QOg"><img src="works/水たまりが光を返すまで/cover.jpg" width="240" alt="水たまりが光を返すまで"></a> |
-| [![Listen on Suno](https://img.shields.io/badge/%E2%96%B6%20Listen%20on-Suno-ff4b2b?style=flat-square)](https://suno.com/s/ACwcZl4hpqH89E9g) | [![Listen on Suno](https://img.shields.io/badge/%E2%96%B6%20Listen%20on-Suno-ff4b2b?style=flat-square)](https://suno.com/s/K1M5T7TxHk4mC457) | [![Listen on Suno](https://img.shields.io/badge/%E2%96%B6%20Listen%20on-Suno-ff4b2b?style=flat-square)](https://suno.com/s/VSih94sZPmDFpYhC) | [![Listen on Suno](https://img.shields.io/badge/%E2%96%B6%20Listen%20on-Suno-ff4b2b?style=flat-square)](https://suno.com/s/POwGnHGp9N4mFbet) | [![Listen on Suno](https://img.shields.io/badge/%E2%96%B6%20Listen%20on-Suno-ff4b2b?style=flat-square)](https://suno.com/s/z7HarBUlpCsb0QOg) |
-| [作品データ](works/三コマ目のドアノブ/) | [作品データ](works/とりあえず起きてから/) | [作品データ](works/リボンが揺れたらメリークリスマス/) | [作品データ](works/ひだまりの角を曲がったら/) | [作品データ](works/水たまりが光を返すまで/) |
+| 三コマ目のドアノブ | とりあえず起きてから |
+| :---: | :---: |
+| <a href="https://suno.com/s/ACwcZl4hpqH89E9g"><img src="works/三コマ目のドアノブ/cover.jpg" width="240" alt="三コマ目のドアノブ"></a> | <a href="https://suno.com/s/K1M5T7TxHk4mC457"><img src="works/とりあえず起きてから/cover.jpg" width="240" alt="とりあえず起きてから"></a> |
+| [![Listen on Suno](https://img.shields.io/badge/%E2%96%B6%20Listen%20on-Suno-ff4b2b?style=flat-square)](https://suno.com/s/ACwcZl4hpqH89E9g) | [![Listen on Suno](https://img.shields.io/badge/%E2%96%B6%20Listen%20on-Suno-ff4b2b?style=flat-square)](https://suno.com/s/K1M5T7TxHk4mC457) |
+| [作品データ](works/三コマ目のドアノブ/) | [作品データ](works/とりあえず起きてから/) |
 
 > GitHub の Markdown 仕様上、外部オーディオプレイヤー（`<iframe>` 等）の直接埋め込みは非対応のため、ジャケット画像・再生バッジから Suno 公式ページへリンクしています。
 
