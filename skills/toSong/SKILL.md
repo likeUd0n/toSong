@@ -11,6 +11,7 @@ description: テキストやファイルから、感情の種の抽出（棚卸�
 1. **発想時は絵より先に結論を固めない**：核テーマ1つだけを握って絵を出し、偶然の違和感から物語を立ち上げる（体験談や資料どおりに作る場合はステップ 0 でルートを選ぶ）。
 2. **「観察」と「設計確定」の間に戯曲・MV台本（4トラック）を挟む**：歌の都合を忘れてキャラを動かし、その後でコンセプト・ペルソナを結晶化する。
 3. **タイトルとカバー画像は最後に作る**：制作中は仮フォルダで進め、歌詞・音が揃った最後の余韻から命名し、ジャケット画像 `cover.jpg` を生成する。
+4. **所要時間を記録する**：各ステップの開始時に `work/timing.log` へ `HH:MM:SS ステップN` を1行追記し（`Get-Date -Format HH:mm:ss` 等で取得）、完了時に `HH:MM:SS 完了` を書く。完了報告に合計時間と最も長かったステップを1行で添える。
 
 ---
 
@@ -51,8 +52,8 @@ description: テキストやファイルから、感情の種の抽出（棚卸�
 ### ステップ 5：ワード・マイニング ＆ 詩的圧縮（`poetry.md`）
 詳細は [lyrics-guide.md](references/lyrics-guide.md) を参照。コア名詞（3〜4個）・環境の時計（2〜3個）・スパイス（1〜2個）・行動の理由（1文）を抜き出し、感情フィルター表を作った上で、制約を外した自由詩 `poetry.md` を書く。
 
-### ステップ 6：Style of Music の生成（`genStyle` スキル）
-`../genStyle/SKILL.md` と [Suno作曲メソッド.md](references/Suno作曲メソッド.md) を参照し、`styles.txt` を作成する。
+### ステップ 6：Style of Music の生成（`genStyle` スキル｜ステップ 5・7 と並列）
+ステップ 4 の確定直後に、`research` サブエージェント（`Model: "flash"`）を起動して任せ、完了を待たずにステップ 5 へ進む。渡すのは `concept.md`・`ペルソナ.md`・`../genStyle/SKILL.md`・[Suno作曲メソッド.md](references/Suno作曲メソッド.md) のパスと出力先 `work/styles.txt` のみ。ステップ 8 の前に完了を確認し、歌詞と食い違う点（ボーカル・テンポ感）があれば直す。
 
 ### ステップ 7：歌詞への翻訳 ＆ 2段階監査（`lyrics.txt`）
 詳細は [lyrics-guide.md](references/lyrics-guide.md) と [Suno作曲メソッド.md](references/Suno作曲メソッド.md) を参照。
