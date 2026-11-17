@@ -6,6 +6,26 @@
 
 ---
 
+## 必要なもの
+
+- **スキル対応の AI コーディングエージェント**：`SKILL.md` 形式を読み込めるツール（Claude Code、Antigravity、OpenCode など）
+- **Python 3**：`skills/toSong/scripts/pick_motifs.py`（ステップ 2 のランダム抽選）の実行に使用（標準ライブラリのみで動作するため追加パッケージは不要）
+- **Suno AI アカウント**：出力された歌詞・Style を Custom Mode に貼り付けて楽曲を生成するため（Free / Pro / Premier いずれも対応）
+- **画像生成手段**（任意）：発想モードのステップ 1 でキービジュアルを生成する場合に使用（`cf-image` 等の画像生成 MCP ツール、Antigravity の `image-generator` サブエージェント、または外部の画像生成ツール。文脈ベースや画像なしで進める場合は不要）
+
+## インストール方法
+
+1. リポジトリを取得します。
+   ```bash
+   git clone https://github.com/likeUdonThanRamen/toSong.git
+   ```
+2. `skills/` 配下の 3 フォルダ（`toSong`, `genStyle`, `song-review`）を、お使いの AI エージェントのスキルディレクトリへコピー（または配置）します。
+   - **Claude Code**：`~/.claude/skills/`（またはプロジェクトの `.claude/skills/`）
+   - **Antigravity**：`~/.gemini/config/skills/`（またはワークスペースのスキルディレクトリ）
+3. AI エージェント上で「`/toSong`」や「この資料から曲を作って」と指示して開始します。
+
+---
+
 ## 出力ファイルと Suno への貼り付け方
 
 制作が完了すると、曲フォルダの直下に **Suno 貼り付け用ファイル**、その中の `work/` に **制作過程の資料（台本・自由詩・画像・ペルソナ等）** が出力されます。
