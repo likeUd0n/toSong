@@ -15,7 +15,8 @@ description: 作曲家・作詞家・AI作曲家（Suno専門家）それぞれ�
 - スタイル（`work/styles.txt`、`suno-paste.md` または `styles.txt` / `style.txt`）
 - ペルソナ（`work/ペルソナ.md` または `ペルソナ.md`）
 - 共通メソッド：`../toSong/references/Suno作曲メソッド.md`
-- 利用プラン：`~/.config/toSong/preferences.json`（未設定時は有料/無料のファイル構成に合わせる）
+- 利用プラン：`songs/preferences.json`（未設定時は有料/無料のファイル構成に合わせる）
+- 作業場所：対象曲フォルダは `songs/<曲名>/`
 
 ### 1. 3人のペルソナ生成と並列レビュー（`invoke_subagent`）
 `research` サブエージェントを **3つ同時に並列起動** し、互いの結果を渡さず独立してレビューさせる。

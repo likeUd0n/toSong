@@ -55,18 +55,23 @@ def extract_from_markdown(md_path: Path) -> dict[str, str]:
     return found
 
 
-def detect_plan(explicit_plan: str, has_paid_files: bool) -> str:
-    """利用プラン（free / paid）を判定する。"""
+def detect_plan(explicit_plan: str, has_paid_files: bool, song_dir: Path | None = None) -> str:
+    """利用プラン（free / paid）を判定する。workspace 内の設定を優先し、サンドボックス外エラーを無視する。"""
     if explicit_plan in ("free", "paid"):
         return explicit_plan
-    pref_path = Path.home() / ".config" / "toSong" / "preferences.json"
-    if pref_path.is_file():
+    candidates: list[Path] = []
+    if song_dir is not None:
+        candidates.append(song_dir.parent / "preferences.json")
+    candidates.append(Path.cwd() / "songs" / "preferences.json")
+    candidates.append(Path.home() / ".config" / "toSong" / "preferences.json")
+    for pref_path in candidates:
         try:
-            data = json.loads(pref_path.read_text(encoding="utf-8"))
-            if data.get("plan") in ("free", "paid"):
-                return str(data["plan"])
+            if pref_path.is_file():
+                data = json.loads(pref_path.read_text(encoding="utf-8"))
+                if data.get("plan") in ("free", "paid"):
+                    return str(data["plan"])
         except (OSError, json.JSONDecodeError):
-            pass
+            continue
     return "paid" if has_paid_files else "free"
 
 
@@ -496,7 +501,7 @@ def main() -> int:
     exclude = read_first_existing([work_dir / "exclude.txt", song_dir / "exclude.txt"]) or md_fallback.get("exclude")
     settings = read_first_existing([work_dir / "settings.txt", song_dir / "settings.txt"]) or md_fallback.get("settings")
 
-    plan = detect_plan(args.plan, bool(exclude or settings))
+    plan = detect_plan(args.plan, bool(exclude or settings), song_dir=song_dir)
     if plan == "free":
         exclude = None
         settings = None

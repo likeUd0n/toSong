@@ -9,10 +9,10 @@ description: テキストやファイルから、6ロール役割分離リレー
 
 ---
 
-## 事前確認：利用プラン（記憶つき）
+## 事前確認：利用プラン・作業場所
 
-- `~/.config/toSong/preferences.json`（例：`{"plan": "free"}`）を確認し、すでに `"plan"`（`"free"` / `"paid"`）があればそのまま使う（変更指定時のみ更新）。
-- 未設定時のみ「無料版（Free）か有料版（Pro / Premier）か」を聞き、同ファイルに保存する。
+- **作業場所**：曲の中間ファイル・最終出力・設定ファイルは、現在の作業フォルダ配下の `songs/` にまとめる。
+- **利用プラン**：`songs/preferences.json`（例：`{"plan": "free"}`）を確認し、すでに `"plan"`（`"free"` / `"paid"`）があればそのまま使う（変更指定時のみ更新）。未設定時のみ「無料版（Free）か有料版（Pro / Premier）か」を聞き、同ファイルに保存する。
 
 ---
 
@@ -33,7 +33,7 @@ description: テキストやファイルから、6ロール役割分離リレー
 > **コンテキスト分離のルール**
 > **⑤ 作詞家**に渡すのは、**③ 構成作家の「主人公の人物像」と「4コマプロット（出来事と因果の事実のみ）」**・**④ 生活実感メモ（3スイッチのラベル含む）**の2点だけ。①②（元の種・分析）、③の `y/z` 設計意図は見せない。
 
-作業中は仮フォルダの `work/` 配下に各ロールの出力を保存し、最後に曲フォルダ `~/Music\Suno\<曲名>\` へ整理する。
+作業中は仮フォルダ（`songs/_work/<仮名>/work/`）に各ロールの出力を保存し、最後に曲フォルダ `songs/<曲名>/` へ整理する。
 
 - **所要時間の記録（`work/timing.log`）**：各ロールの開始時に `work/timing.log` へ `HH:MM:SS ロールN` を1行追記し、完了時に `HH:MM:SS 完了` を書く。完了報告に合計時間と最も長かったロールを1行で添える（集計には [calc_timing.py](scripts/calc_timing.py) を使用可）。
 
@@ -90,14 +90,14 @@ description: テキストやファイルから、6ロール役割分離リレー
   - **サビ前の落とす→解放**：Pre-Chorus は `[Half-time]` や `[Build Up]` ＋ `[Break]`（直後に `[Chorus]`）で落差を作り、サビを `[Full Band]` で解放する。
   - **2番・Bridge・Outro の引き算**：Verse 2 は `[Bass and Drums]` → `[Add Clean Electric Guitar]` 等で1番と質感を変え、Bridge は `[Stripped Back]` で一度引き算してからラスサビへ繋ぐ。BメロとCメロで同じ盛り上げ方を重ねない。イントロのモチーフをアウトロでも響かせる。
 - **表記ルール**：漢字仮名交じり基本、多音字や誤読されやすい漢字（`きょう` `あした` `よかぜ` `かど` `もちて` 等）はひらがなにする。読点 `、` とカギ括弧 `「 」` は使わずスペースと改行でブレス。数字・英字略語はカタカナ固定。
-- **2段階監査（VOICEVOX 自動チェック組み込み）**：
+- **2段階監査（音声・音韻チェック自動組み込み）**：
   1. **第1関門（意味・文脈）**：台本を知らない読者目線で「主人公が何をしていてなぜそうしているか」「主語・述語が揃っているか」「聞いて1秒で映像が浮かぶか」を確認。
-  2. **第2関門（VOICEVOX 音声・音韻チェック）**：初稿を `work/05_lyrics.txt` に保存し、[check_lyrics_audio.py](scripts/check_lyrics_audio.py) を実行する（localhost 接続のためサンドボックス外で実行）。
+  2. **第2関門（音韻・表記チェッカー）**：初稿を `work/05_lyrics.txt` に保存し、[check_lyrics_audio.py](scripts/check_lyrics_audio.py) を実行する（スキルフォルダの `scripts/` を指定する）。VOICEVOX Engine を使わない場合は `--offline` をつける。
      ```bash
-     python scripts/check_lyrics_audio.py work/05_lyrics.txt
+     python <スキルフォルダ>/scripts/check_lyrics_audio.py --offline work/05_lyrics.txt
      ```
-     - 生成された `work/audio-check.md` を確認し、**警告（長すぎ・詰まり気味・拍突出・座標語・多音字・禁止記号）・セクション対称性・語彙の反復**が解消するまで歌詞を修正して再実行する（最終的に `work/lyrics.txt` にもコピーし、`work/preview.wav` を残す）。
-     - VOICEVOX Engine が未起動で接続できない場合は、その旨を報告したうえで手動でモーラ・多音字・禁止記号・対称性を監査する。
+     - 生成された `work/audio-check.md` を確認し、**警告（長すぎ・極短・拍突出・座標語・多音字・禁止記号）・セクション対称性・語彙の反復**が解消するまで歌詞を修正して再実行する（確定後 `work/lyrics.txt` にコピー）。
+     - VOICEVOX Engine（`http://127.0.0.1:50021`）が起動していれば `--offline` なしで実行し、実読み上げ（`preview.wav`・OpenJTalk 精密モーラ）でも確認する。
 
 ### ⑥ 編曲家 → `work/06_styles.md`（および `work/style.txt`、有料時は `exclude.txt`, `settings.txt`）
 ③の `z` 変動範囲と⑤の確定歌詞をすり合わせて Suno 向けに調律する（必要に応じて `../genStyle/SKILL.md` を参照）。
@@ -113,8 +113,8 @@ description: テキストやファイルから、6ロール役割分離リレー
 
 1. **タイトル命名 ＆ 一貫性チェック**：余韻の残るタイトルを決め、核イメージが1番〜サビすべてと繋がっているか確認して `work/title.txt` に保存する。
 2. **カバー画像生成（`cover.jpg`）**：タイトル・コンセプト・曲の空気感を反映したジャケット画像（文字・ロゴなし）を、`cf-image` MCP（`generate_image`、英語プロンプト・`steps: 4`）で曲フォルダ直下に `cover.jpg` として 1 枚生成する（ユーザーが不要と指定した場合のみ省略）。
-3. **貼り付けファイル生成 ＆ フォルダ整理（`~/Music\Suno\<曲名>\`）**：
-   - **`work/` サブフォルダ**：`title.txt`, `style.txt`, `lyrics.txt`（有料時は `exclude.txt`, `settings.txt`）、`01_delivery.md` 〜 `06_styles.md`、`audio-check.md`、`preview.wav` 等を保存する。
-   - **貼り付け用ファイル生成**：[generate_paste.py](scripts/generate_paste.py) を実行（`python scripts/generate_paste.py "<曲フォルダ>"`）し、ルート直下に **`suno-paste.md`** と **`suno-paste.html`**（コピーボタン付き）を生成する（上から **Lyrics → Style of Music → Title** の順）。
+3. **貼り付けファイル生成 ＆ フォルダ整理（`songs/<曲名>/`）**：
+   - **`work/` サブフォルダ**：`title.txt`, `style.txt`, `lyrics.txt`（有料時は `exclude.txt`, `settings.txt`）、`01_delivery.md` 〜 `06_styles.md`、`audio-check.md` 等を保存する。
+   - **貼り付け用ファイル生成**：[generate_paste.py](scripts/generate_paste.py) を実行（`python <スキルフォルダ>/scripts/generate_paste.py "songs/<曲名>"`）し、ルート直下に **`suno-paste.md`** と **`suno-paste.html`**（コピーボタン付き）を生成する（上から **Lyrics → Style of Music → Title** の順）。
    - **ルート直下（貼り付け用・ジャケットのみ）**：`suno-paste.md`、`suno-paste.html`、`cover.jpg`
 4. **完了報告**：まず **[`suno-paste.html`](suno-paste.html) へのクリック可能なリンク（`file://`）とフォルダを開くコマンドを提示**し、仕上げのブラッシュアップとして **`/song-review`** を提案する。

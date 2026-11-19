@@ -164,6 +164,52 @@ def analyze_query(section: str, line_no: int, text: str, query: dict) -> LineChe
     )
 
 
+SMALL_KANA_RE = re.compile(r"[ゃゅょぁぃぅぇぉゎャュョァィゥェォヮ]")
+KANJI_RE = re.compile(r"[一-龥々]")
+NON_MORA_RE = re.compile(r"[\s　、。！？!?,.\-「」『』()（）\[\]【】・…~〜]")
+
+
+def estimate_mora_offline(text: str) -> int:
+    """VOICEVOX なしでの概算モーラ数（仮名1・拗音0・漢字1.5換算）。"""
+    cleaned = NON_MORA_RE.sub("", text)
+    cleaned = SMALL_KANA_RE.sub("", cleaned)
+    kanji_count = len(KANJI_RE.findall(cleaned))
+    other_count = len(cleaned) - kanji_count
+    return round(other_count + kanji_count * 1.5)
+
+
+def analyze_offline(section: str, line_no: int, text: str) -> LineCheck:
+    """VOICEVOX Engine に接続せず、表記・禁止記号・座標語・多音字・概算モーラを監査する。"""
+    mora_count = estimate_mora_offline(text)
+    spatial_hits = [w for w in SPATIAL_WORDS if w in text]
+    poly_hits = [label for label, pat in POLYPHONIC_PATTERNS if pat.search(text)]
+    punct_hits = sorted(set(FORBIDDEN_PUNCT_RE.findall(text)))
+
+    flags: list[str] = []
+    if mora_count >= 22:
+        flags.append("長すぎ(概算)")
+    elif mora_count <= 4:
+        flags.append("極短(概算)")
+    if spatial_hits:
+        flags.append(f"座標語({','.join(spatial_hits)})")
+    if poly_hits:
+        flags.append(f"多音字({','.join(poly_hits)})")
+    if punct_hits:
+        flags.append(f"禁止記号({''.join(punct_hits)})")
+
+    return LineCheck(
+        section=section,
+        line_no=line_no,
+        text=text,
+        reading="(offline概算)",
+        mora_count=mora_count,
+        speech_sec=0.0,
+        mora_per_sec=0.0,
+        spatial_hits=spatial_hits,
+        flags=flags,
+    )
+
+
 def flag_section_outliers(checks: list[LineCheck]) -> None:
     """同一セクション内で中央値から大きく外れる行にフラグを立てる。"""
     by_sec: dict[str, list[LineCheck]] = {}
@@ -320,6 +366,7 @@ def main() -> int:
     parser.add_argument("--speaker", type=int, default=DEFAULT_SPEAKER, help=f"話者ID（既定: {DEFAULT_SPEAKER}）")
     parser.add_argument("--url", default=DEFAULT_URL, help=f"VOICEVOX Engine URL（既定: {DEFAULT_URL}）")
     parser.add_argument("--no-wav", action="store_true", help="WAV 出力を省き音韻解析のみ実行")
+    parser.add_argument("--offline", action="store_true", help="VOICEVOX に接続せず静的チェック（概算モーラ・多音字・座標語・禁止記号・対称性・反復）のみ実行")
     parser.add_argument("--out-dir", type=Path, default=None, help="出力先フォルダ（既定: 入力ファイルと同じ場所）")
     args = parser.parse_args()
 
@@ -327,30 +374,35 @@ def main() -> int:
         print(f"File not found: {args.lyrics_file}", file=sys.stderr)
         return 1
 
-    try:
-        ver = check_engine(args.url)
-    except requests.RequestException:
-        print(
-            f"VOICEVOX Engine に接続できません ({args.url})。\n"
-            "VOICEVOX アプリ（または Engine）を起動してから再実行してください。",
-            file=sys.stderr,
-        )
-        return 1
-
     parsed = parse_lyrics(args.lyrics_file)
     if not parsed:
         print("歌詞行が見つかりませんでした。", file=sys.stderr)
         return 1
 
-    print(f"VOICEVOX Engine v{ver} 接続OK / {len(parsed)}行を解析中...")
-
     checks: list[LineCheck] = []
     wav_segments: list[tuple[str, bytes]] = []
-    for sec, line_no, text in parsed:
-        query = fetch_audio_query(args.url, text, args.speaker)
-        checks.append(analyze_query(sec, line_no, text, query))
-        if not args.no_wav:
-            wav_segments.append((sec, synthesize_wav(args.url, query, args.speaker)))
+
+    if args.offline:
+        print(f"オフライン静的チェックモード / {len(parsed)}行を解析中...")
+        for sec, line_no, text in parsed:
+            checks.append(analyze_offline(sec, line_no, text))
+    else:
+        try:
+            ver = check_engine(args.url)
+        except requests.RequestException:
+            print(
+                f"VOICEVOX Engine に接続できません ({args.url})。\n"
+                "VOICEVOX アプリ（または Engine）を起動してから再実行するか、--offline を使用してください。",
+                file=sys.stderr,
+            )
+            return 1
+
+        print(f"VOICEVOX Engine v{ver} 接続OK / {len(parsed)}行を解析中...")
+        for sec, line_no, text in parsed:
+            query = fetch_audio_query(args.url, text, args.speaker)
+            checks.append(analyze_query(sec, line_no, text, query))
+            if not args.no_wav:
+                wav_segments.append((sec, synthesize_wav(args.url, query, args.speaker)))
 
     flag_section_outliers(checks)
     sym_notes = compare_symmetric_sections(checks)
@@ -361,7 +413,7 @@ def main() -> int:
 
     wav_path: Path | None = None
     wav_sec = 0.0
-    if not args.no_wav:
+    if not args.offline and not args.no_wav:
         wav_path = out_dir / "preview.wav"
         wav_sec = concat_wavs(wav_segments, wav_path)
 
@@ -369,7 +421,12 @@ def main() -> int:
     md_text = render_markdown(
         args.lyrics_file, args.speaker, checks, sym_notes, repeated_words, wav_path, wav_sec
     )
-    md_path.write_text(md_text, encoding="utf-8")
+    wrote_md = False
+    try:
+        md_path.write_text(md_text, encoding="utf-8")
+        wrote_md = True
+    except PermissionError:
+        print(f"警告: {md_path} への書き込み権限がないため、レポートを標準出力に表示します。", file=sys.stderr)
 
     # コンソール要約
     flagged = [c for c in checks if c.flags]
@@ -386,7 +443,12 @@ def main() -> int:
         print("  [警告行]")
         for c in flagged:
             print(f"    - [{c.section}] {c.text} ({c.mora_count}mora, {', '.join(c.flags)})")
-    print(f"出力: {md_path}")
+    if wrote_md:
+        print(f"出力: {md_path}")
+    else:
+        print("\n--- BEGIN audio-check.md ---")
+        print(md_text, end="")
+        print("--- END audio-check.md ---")
     if wav_path:
         print(f"音声: {wav_path} ({wav_sec:.1f}s)")
     return 0
