@@ -18,14 +18,14 @@ Suno AI で楽曲を制作する際の共通原則と仕様ルール。
 
 ## 3. メタタグと発音ガード
 
-- **メタタグ**：1〜3語の標準英語名詞を `[Tag]` 形式で単独行に書く（例：`[Intro]`, `[Break]`, `[Full Band]`）。`|` 複合記法、`:` 説明文、`[Break]` 直下の歌詞、1サビの `[Light Rhythm]` など弱めるタグは避ける。
-- **余白を作る**：Suno は音を足しすぎる傾向があるため、タグは音を抜いて余白を作るつもりで書く（`[Add 〜]` を重ねず、`Only` タグで一度止める）。
-- **緩急とビルドアップ分離**：イントロのモチーフをアウトロでも響かせる。Bメロは `[Half-time]` `[Sparse Piano]` ＋ `[Break]` で落とし、1サビを `[Full Band]` で解放する。BメロとCメロで同じ盛り上げ方を重ねない。
+- **メタタグ**：1〜3語の標準英語を **`[Tag]` 単独行** で書く（例：`[Intro]`, `[Stripped Back]`, `[Breakdown]`, `[Silence]`, `[End]`）。`|` 複合記法、`:` 説明文、ハイフン修飾（`[Verse 2 - stripped back]`）、`[Break]` 直下の歌詞、1サビの `[Light Rhythm]` など弱めるタグは避ける。
+- **引き算・最小構成**：構造タグ（`[Intro]` `[Verse 1]` `[Chorus]` `[Verse 2]` `[Bridge]` `[Final Chorus]` `[Outro]`）を骨格にし、編曲・歌唱タグは転換点 3〜4か所だけに絞る。`[Add 〜]` の連打や `Only` 系タグ（`[Piano Only]` 等・無視されやすい）は廃止し、**`[Solo 〜]` / `[Sparse 〜]` / `[Stripped Back]` / `[Breakdown]`** を使う。
+- **無音と終止・緩急**：明確な間は **`[Silence]`**（前後空行・直前行末に句読点なし）、曲末は **`[End]`** で締める。イントロのモチーフをアウトロでも響かせ、BメロとCメロで同じ盛り上げ方を重ねない。
 - **表記ルール**：漢字仮名交じりを基本とし、読みが複数ある語（`きょう` `あした` 等）のみひらがなにする。読点 `、` とカギ括弧 `「 」` は使わず、スペースと改行でブレスを作る。数字・英字略語はカタカナに固定する。
 
 ## 4. Style of Music ＆ パラメータ
 
-- **Style of Music（25語以内）**：先頭に重みが集中するため **「ジャンル → 声質 → コア楽器（3〜4点） → BPM → 全体質感」** の順に並べる。
-- **避ける語**：`Fragile`（音圧低下）、`Lush Voicings`（濁り）。静と動の落差には `Dynamic Contrast` を使う。
-- **Exclude Styles**：2〜3個に絞る（例：`synth, auto-tune, screaming`）。
-- **推奨パラメータ**：Style Influence `65〜75%`（対比曲は `80%`）、Weirdness `30%` 前後（170 BPM 超は `25〜35%`）。
+- **Style of Music（短い自然言語・2文程度）**：単語の羅列ではなく、**①ジャンル・BPM・声質**と**②静かなパートとサビでの楽器の役割分担**を短い自然言語で書く（例：`Japanese pop rock at 118 BPM with a clear female vocal. Sparse piano leads the quiet verses and bridge, while crisp drums and bass open up the choruses.`）。
+- **避ける語**：`Explosive` 等の過剰な盛り上げ語、`Fragile`（音圧低下）、`Lush Voicings`（濁り）。
+- **Exclude Styles（有料プラン時）**：2〜3個に絞る（例：`synth, auto-tune, screaming`）。
+- **推奨パラメータ（有料プラン時）**：Style Influence `65〜75%`（対比曲は `80%`）、Weirdness `30%` 前後（170 BPM 超は `25〜35%`）。
