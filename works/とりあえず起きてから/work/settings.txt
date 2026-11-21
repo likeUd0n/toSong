@@ -1,4 +1,0 @@
-Custom Mode: ON
-Instrumental: OFF
-Style Influence: 65%
-Weirdness: 30%
