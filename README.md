@@ -2,6 +2,10 @@
 
 ![Status: WIP](https://img.shields.io/badge/status-WIP%20%2F%20%E9%96%8B%E7%99%BA%E4%B8%AD-orange?style=flat-square)
 
+**メモや雑談から、Suno AI 用の「歌詞・Style・ジャケット」を一式で自動生成する AI エージェント向けスキルです。**
+
+※ 音声ファイル自体は生成しません。Suno の **Custom Mode** にコピペして「Create」を押すだけの状態を作ります。
+
 > [!NOTE]
 > このプロジェクトは現在**開発中（実験段階）**です。スキル構成・手順・出力形式は予告なく変更されることがあります。
 >
@@ -9,19 +13,16 @@
 > - 楽器タグの多用・`Only` 系タグ無視による平坦化／息苦しさは、Suno `v6-mini` 実機検証を経て**「短い自然言語 Style ＋ 単独行の最小引き算タグ（Pattern C）」**へ刷新し、最新の収録作品（『手になじむまで』）に反映済みです（2026-11-21）
 > - サビのフック・反復の気持ちよさでは Suno 自動生成に負ける場面があり、サビ設計と種ルートでの余白維持を継続改善中です
 
-**toSong は、音楽生成 AI「Suno AI」に入力するための『歌詞・Style プロンプト・パラメータ一式』を、思いつきや手元の資料から自動で組み立てる AI エージェント向けスキル群（Suno 専用プロンプター／制作ワークフロー）です。**
+## 最新リリース・収録作品（`works/`）
 
-※ このリポジトリ自体は音声ファイル（MP3/WAV）を直接生成しません。Suno の **Custom Mode** にそのままコピペして「Create」を押すだけの状態を作るための設計・プロンプト生成ツールです。
+| 手になじむまで（v3 Pattern C / 苗木ルート） |
+| :---: |
+| <a href="https://suno.com/s/Au1u6AumENmeOQbC"><img src="works/手になじむまで/cover.jpg" width="240" alt="手になじむまで"></a> |
+| [![Listen on Suno](https://img.shields.io/badge/%E2%96%B6%20Listen%20on-Suno-ff4b2b?style=flat-square)](https://suno.com/s/Au1u6AumENmeOQbC) |
+| 76 BPM / Japanese Indie Ballad（音韻チェック警告 0・Suno `v6-mini` 実聴済み） |
+| [作品データ](works/手になじむまで/) |
 
-## デモ：雑談のお題が 1 曲になるまで
-
-<a href="docs/demo.mp4"><img src="docs/demo.gif" width="720" alt="toSong デモ：雑談でお題 → /toSong に貼る → Suno に貼って Create"></a>
-
-| Before | Process | After |
-| :--- | :--- | :--- |
-| AI との雑談で出たお題 | `/toSong` に貼っておまかせで歌詞・Style・ジャケットを生成し、`suno-paste.md` を Suno（無料プラン）に貼って Create | 『三コマ目のドアノブ』（旧デモ） [![Listen on Suno](https://img.shields.io/badge/%E2%96%B6%20Listen%20on-Suno-ff4b2b?style=flat-square)](https://suno.com/s/ACwcZl4hpqH89E9g) |
-
-※ GIF は無音です（リンク先の MP4 は BGM 付き、動画内のデモ曲本編は上記 Suno リンクから聴けます。現行仕様のサンプルは下の「収録作品」に掲載しています）。
+> GitHub の Markdown 仕様上、外部オーディオプレイヤー（`<iframe>` 等）の直接埋め込みは非対応のため、ジャケット画像・再生バッジから Suno 公式ページへリンクしています。
 
 ---
 
@@ -127,19 +128,6 @@ Suno に貼り付けるときは、ブラウザで `suno-paste.html` を開い�
 ### 2. `work/` サブフォルダ（単体テキスト・制作過程の資料）
 - 単体ファイル：`title.txt`, `style.txt`, `lyrics.txt`（有料プラン時は `exclude.txt`, `settings.txt` も生成）
 - 制作資料：`00_diagnosis.md`（入力診断）, `01_delivery.md` 〜 `06_styles.md`（各ロール出力）, `audio-check.md`（音韻チェック結果）, `timing.log`（所要時間ログ）, `review.md` 等
-
----
-
-## 収録作品（`works/`）
-
-| 手になじむまで（v3 Pattern C / 苗木ルート） |
-| :---: |
-| <a href="https://suno.com/s/Au1u6AumENmeOQbC"><img src="works/手になじむまで/cover.jpg" width="240" alt="手になじむまで"></a> |
-| [![Listen on Suno](https://img.shields.io/badge/%E2%96%B6%20Listen%20on-Suno-ff4b2b?style=flat-square)](https://suno.com/s/Au1u6AumENmeOQbC) |
-| 76 BPM / Japanese Indie Ballad（音韻チェック警告 0・Suno `v6-mini` 実聴済み） |
-| [作品データ](works/手になじむまで/) |
-
-> GitHub の Markdown 仕様上、外部オーディオプレイヤー（`<iframe>` 等）の直接埋め込みは非対応のため、ジャケット画像・再生バッジから Suno 公式ページへリンクしています。
 
 ---
 
